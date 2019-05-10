@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Hardware Tester</title>
+  <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+  <div id="display-controls">
+    <h1>Display Test</h1>
+    <p>Check the panel for dead pixels, pressure points, or back light bleed.</p>
+    <button class="button red-button" id='red'>Red</button>
+    <button class="button blue-button" id='blue'>Blue</button>
+    <button class="button green-button" id='green'>Green</button>
+    <button class="button white-button" id='white'>White</button>
+    <button class="button black-button" id='black'>Black</button>
+  </div>
+
+  <hr>
+
+  <h1>Keyboard Test</h1>
+  <p>Verify all keys are in working condition.</p>
+  <div class="section keyboard-test">
+    <div>
+      <div class="row">
+        <span class="key" key="192">`</span>
+        <span class="key" key="49">1</span>
+        <span class="key" key="50">2</span>
+        <span class="key" key="51">3</span>
+        <span class="key" key="52">4</span>
+        <span class="key" key="53">5</span>
+        <span class="key" key="54">6</span>
+        <span class="key" key="55">7</span>
+        <span class="key" key="56">8</span>
+        <span class="key" key="57">9</span>
+        <span class="key" key="48">0</span>
+        <span class="key" key="189">-</span>
+        <span class="key" key="187">=</span>
+        <span class="key" style="flex: 1" key="8">del</span>
+      </div>
+      <div class="row">
+        <span class="key" style="flex: 1" key="9">tab</span>
+        <span class="key" key="81">q</span>
+        <span class="key" key="87">w</span>
+        <span class="key" key="69">e</span>
+        <span class="key" key="82">r</span>
+        <span class="key" key="84">t</span>
+        <span class="key" key="89">y</span>
+        <span class="key" key="73">i</span>
+        <span class="key" key="79">o</span>
+        <span class="key" key="80">p</span>
+        <span class="key" key="219">[</span>
+        <span class="key" key="221">]</span>
+        <span class="key" key="220">\</span>
+      </div>
+      <div class="row">
+        <span class="key" style="flex: 1" key="20">caps</span>
+        <span class="key" key="65">a</span>
+        <span class="key" key="83">s</span>
+        <span class="key" key="68">d</span>
+        <span class="key" key="70">f</span>
+        <span class="key" key="71">g</span>
+        <span class="key" key="72">h</span>
+        <span class="key" key="74">j</span>
+        <span class="key" key="75">k</span>
+        <span class="key" key="76">l</span>
+        <span class="key" key="186">;</span>
+        <span class="key" key="222">'</span>
+        <span class="key" key="13">return</span>
+      </div>
+      <div class="row">
+        <span class="key" style="flex: 1" key="20">shift</span>
+        <span class="key" key="90">z</span>
+        <span class="key" key="88">x</span>
+        <span class="key" key="67">c</span>
+        <span class="key" key="86">v</span>
+        <span class="key" key="66">b</span>
+        <span class="key" key="78">n</span>
+        <span class="key" key="77">m</span>
+        <span class="key" key="188">,</span>
+        <span class="key" key="190">.</span>
+        <span class="key" key="191">/</span>
+        <span class="key" style="flex: 1" key="16">shift</span>
+      </div>
+      <div class="row">
+        <span class="key" key="17">ctl</span>
+        <span class="key" key="18">alt/opt</span>
+        <span class="key" key="91">cmd/win</span>
+        <span class="key" style="flex: 1" key="32">spacebar</span>
+        <span class="key" key="93">cmd/start</span>
+        <span class="key" key="18">alt/win</span>
+        <span class="key" key="20">ctl</span>
+      </div>
+    </div>
+
+    <div class='more-keys'>
+      <div class="row" style="justify-content: center">
+        <span class="key" key="36"> </span>
+        <span class="key" key="36">home</span>
+        <span class="key" key="33">pu</span>
+      </div>
+      <div class="row" style="justify-content: center">
+        <span class="key" key="46">del</span>
+        <span class="key" style="flex: 1" key="35">end</span>
+        <span class="key" key="34">pd</span>
+      </div>
+      <div class="row" style="justify-content: center; flex: 1">
+      </div>
+      <div class="row" style="justify-content: center">
+        <span class="key" key="38">&#8679;</span>
+      </div>
+      <div class="row">
+        <span class="key" style="flex: 1" key="37">&#8678;</span>
+        <span class="key" style="flex: 1" key="40">&#8681;</span>
+        <span class="key" style="flex: 1" key="39">&#8680;</span>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="section audio-test">
+    <h1>Audio Test</h1>
+    <p>Check all speakers work and are not damaged.</p>
+    <audio controls>
+      <source src="stilldre.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+  </div>
+
+  <hr>
+
+  <div class="section battery-test">
+    <h1>Battery Test</h1>
+    <p>This will stress the CPU to 100%. See if the battery drains abnormally quick.</p>
+    <button class="button cpu-button">Run</button>
+
+  </div>
+
+  <hr>
+
+  <div class="section trackpad-test">
+    <h1>Trackpad Test</h1>
+    <p>Test the tracking in the canvas. Check for dead spots or unresponsiveness.</p>
+    <canvas width="800px" height="450px"></canvas>
+
+  </div>
+
+
+  <script type="text/javascript" src="scripts/vendor.js"></script>
+  <script type="text/javascript" src="scripts/scripts.min.js"></script>
+</body>
+
+</html>
