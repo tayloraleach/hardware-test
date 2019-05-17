@@ -105,77 +105,35 @@
     }
   });
 
-  // Trackpad
-  class SignTool {
-    constructor() {
-      this.initVars();
-      this.initEvents();
-    }
+  const canvas = document.querySelector(".trackpad-test canvas");
+  const clear_canvas = document.querySelector("#clear-canvas-button");
+  var ctx = canvas.getContext("2d");
+  var pos = { x: 0, y: 0 };
 
-    initVars() {
-      this.canvas = document.querySelector(".trackpad-test canvas");
-      this.ctx = this.canvas.getContext("2d");
-      this.isMouseClicked = false;
-      this.isMouseInCanvas = false;
-      this.prevX = 0;
-      this.currX = 0;
-      this.prevY = 0;
-      this.currY = 0;
-    }
+  clear_canvas.addEventListener("click", () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  });
+  document.addEventListener("mousemove", draw);
+  document.addEventListener("mousedown", setPosition);
+  document.addEventListener("mouseenter", setPosition);
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
 
-    initEvents() {
-      const canvas = document.querySelector(".trackpad-test canvas");
-      canvas.addEventListener("mousemove", e => this.onMouseMove(e));
-      canvas.addEventListener("mousedown", e => this.onMouseDown(e));
-      canvas.addEventListener("mouseup", () => this.onMouseUp());
-      canvas.addEventListener("mouseout", () => this.onMouseOut());
-      canvas.addEventListener("mouseenter", e => this.onMouseEnter(e));
-    }
-
-    onMouseDown(e) {
-      this.isMouseClicked = true;
-      this.updateCurrentPosition(e);
-    }
-
-    onMouseUp() {
-      this.isMouseClicked = false;
-    }
-
-    onMouseEnter(e) {
-      this.isMouseInCanvas = true;
-      this.updateCurrentPosition(e);
-    }
-
-    onMouseOut() {
-      this.isMouseInCanvas = false;
-    }
-
-    onMouseMove(e) {
-      if (this.isMouseClicked && this.isMouseInCanvas) {
-        this.updateCurrentPosition(e);
-        this.draw();
-      }
-    }
-
-    updateCurrentPosition(e) {
-      this.prevX = this.currX;
-      this.prevY = this.currY;
-      this.currX = e.clientX - this.canvas.offsetLeft;
-      this.currY = e.clientY - this.canvas.offsetTop;
-    }
-
-    draw() {
-      console.log(this.prevX);
-      console.log(this.prevY);
-      this.ctx.beginPath();
-      this.ctx.moveTo(this.prevX, this.prevY);
-      this.ctx.lineTo(this.currX, this.currY);
-      this.ctx.strokeStyle = "black";
-      this.ctx.lineWidth = 2;
-      this.ctx.stroke();
-      this.ctx.closePath();
-    }
+  function setPosition(e) {
+    pos.x = e.clientX - canvas.getBoundingClientRect().top;
+    pos.y = e.clientY - canvas.getBoundingClientRect().top;
   }
 
-  var canvass = new SignTool();
+  function draw(e) {
+    // mouse left button must be pressed
+    if (e.buttons !== 1) return;
+    ctx.beginPath();
+    ctx.lineWidth = 2;
+    ctx.lineCap = "round";
+    ctx.strokeStyle = "#333";
+    ctx.moveTo(pos.x, pos.y);
+    setPosition(e);
+    ctx.lineTo(pos.x, pos.y);
+    ctx.stroke();
+  }
 })();

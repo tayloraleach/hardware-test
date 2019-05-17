@@ -1,9 +1,5 @@
 "use strict";
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 (function hardwareTest() {
   var elem = document.documentElement;
 
@@ -112,105 +108,35 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }
   });
 
-  // Trackpad
+  var canvas = document.querySelector(".trackpad-test canvas");
+  var clear_canvas = document.querySelector("#clear-canvas-button");
+  var ctx = canvas.getContext("2d");
+  var pos = { x: 0, y: 0 };
 
-  var SignTool = function () {
-    function SignTool() {
-      _classCallCheck(this, SignTool);
+  clear_canvas.addEventListener("click", function () {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  });
+  document.addEventListener("mousemove", draw);
+  document.addEventListener("mousedown", setPosition);
+  document.addEventListener("mouseenter", setPosition);
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
 
-      this.initVars();
-      this.initEvents();
-    }
+  function setPosition(e) {
+    pos.x = e.clientX - canvas.getBoundingClientRect().top;
+    pos.y = e.clientY - canvas.getBoundingClientRect().top;
+  }
 
-    _createClass(SignTool, [{
-      key: "initVars",
-      value: function initVars() {
-        this.canvas = document.querySelector(".trackpad-test canvas");
-        this.ctx = this.canvas.getContext("2d");
-        this.isMouseClicked = false;
-        this.isMouseInCanvas = false;
-        this.prevX = 0;
-        this.currX = 0;
-        this.prevY = 0;
-        this.currY = 0;
-      }
-    }, {
-      key: "initEvents",
-      value: function initEvents() {
-        var _this = this;
-
-        var canvas = document.querySelector(".trackpad-test canvas");
-        canvas.addEventListener("mousemove", function (e) {
-          return _this.onMouseMove(e);
-        });
-        canvas.addEventListener("mousedown", function (e) {
-          return _this.onMouseDown(e);
-        });
-        canvas.addEventListener("mouseup", function () {
-          return _this.onMouseUp();
-        });
-        canvas.addEventListener("mouseout", function () {
-          return _this.onMouseOut();
-        });
-        canvas.addEventListener("mouseenter", function (e) {
-          return _this.onMouseEnter(e);
-        });
-      }
-    }, {
-      key: "onMouseDown",
-      value: function onMouseDown(e) {
-        this.isMouseClicked = true;
-        this.updateCurrentPosition(e);
-      }
-    }, {
-      key: "onMouseUp",
-      value: function onMouseUp() {
-        this.isMouseClicked = false;
-      }
-    }, {
-      key: "onMouseEnter",
-      value: function onMouseEnter(e) {
-        this.isMouseInCanvas = true;
-        this.updateCurrentPosition(e);
-      }
-    }, {
-      key: "onMouseOut",
-      value: function onMouseOut() {
-        this.isMouseInCanvas = false;
-      }
-    }, {
-      key: "onMouseMove",
-      value: function onMouseMove(e) {
-        if (this.isMouseClicked && this.isMouseInCanvas) {
-          this.updateCurrentPosition(e);
-          this.draw();
-        }
-      }
-    }, {
-      key: "updateCurrentPosition",
-      value: function updateCurrentPosition(e) {
-        this.prevX = this.currX;
-        this.prevY = this.currY;
-        this.currX = e.clientX - this.canvas.offsetLeft;
-        this.currY = e.clientY - this.canvas.offsetTop;
-      }
-    }, {
-      key: "draw",
-      value: function draw() {
-        console.log(this.prevX);
-        console.log(this.prevY);
-        this.ctx.beginPath();
-        this.ctx.moveTo(this.prevX, this.prevY);
-        this.ctx.lineTo(this.currX, this.currY);
-        this.ctx.strokeStyle = "black";
-        this.ctx.lineWidth = 2;
-        this.ctx.stroke();
-        this.ctx.closePath();
-      }
-    }]);
-
-    return SignTool;
-  }();
-
-  var canvass = new SignTool();
+  function draw(e) {
+    // mouse left button must be pressed
+    if (e.buttons !== 1) return;
+    ctx.beginPath();
+    ctx.lineWidth = 2;
+    ctx.lineCap = "round";
+    ctx.strokeStyle = "#333";
+    ctx.moveTo(pos.x, pos.y);
+    setPosition(e);
+    ctx.lineTo(pos.x, pos.y);
+    ctx.stroke();
+  }
 })();
